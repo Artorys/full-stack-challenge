@@ -12,13 +12,15 @@ export function Form(props: IFormProps){
     useEffect(()=>{
         window.addEventListener("resize",()=>{
             const formElement = ((formRef?.current as unknown) as HTMLFormElement)
-            const scrollHeight = formElement.scrollHeight
-            const windowHeight = formElement.clientHeight
-            if(scrollHeight > windowHeight){
-                setOverflow((overflow)=> true)
-            }
-            else{
-                setOverflow((overflow)=> false)
+            if(formElement){
+                const scrollHeight = formElement.scrollHeight
+                const windowHeight = formElement.clientHeight
+                if(scrollHeight > windowHeight){
+                    setOverflow((overflow)=> true)
+                }
+                else{
+                    setOverflow((overflow)=> false)
+                }
             }
         })
     },[])

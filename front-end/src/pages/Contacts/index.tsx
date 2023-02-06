@@ -32,7 +32,7 @@ export function Contacts(){
                             <Tittle text="Registrar contato"></Tittle>
                             <Input width="100%" text="Nome completo" id="nome" placeholder="Nome do contato"></Input>
                             <Input width="100%" text="Email" id="email" placeholder="Email do contato"></Input>
-                            <Input width="100%" text="Telefone" id="telefone" placeholder="Telefone do contato"></Input>
+                            <Input mask="(99)9999-9999" width="100%" text="Telefone" id="telefone" placeholder="Telefone do contato"></Input>
                             <Button width="50%" to="/Contatos" text="Registrar"></Button>
                         </Form>
                         </StyledSection>

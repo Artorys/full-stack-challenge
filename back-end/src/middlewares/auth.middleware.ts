@@ -21,7 +21,7 @@ export async function AuthTokenCheck(req : IRequestCLient,res: Response,next : N
     }
     catch(err){
         if(err instanceof TypeError){
-            const message = {message : "Format token invalid"}
+            const message = {message : "Only Bearer token is accepted"}
             return res.status(400).json({message})
         }
         const message = {message : "Internal server error"}
