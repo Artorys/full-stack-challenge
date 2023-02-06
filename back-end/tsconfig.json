@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
+    "typeRoots": ["./@types", "./node_modules/@types"],
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "resolveJsonModule" : true
+  },
+}

@@ -1,13 +1,8 @@
-import { FormEvent} from "react";
 import { BackgroundForm } from "../../components/BackgroundForm";
 import { Input } from "../../components/Input";
 import { Tittle } from "../../components/Tittle";
 import { Button } from "../../components/Button";
 import { Form } from "../../components/Form";
-
-function sendData(eve : FormEvent<HTMLFormElement>){
-    eve.preventDefault()
-}
 
 export function Register(){
     return (

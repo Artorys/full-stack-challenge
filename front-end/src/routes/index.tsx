@@ -2,6 +2,7 @@ import {createBrowserRouter,} from "react-router-dom"
 import { Register } from "../pages/Register"
 import { Login } from "../pages/Login"
 import { Contacts } from "../pages/Contacts"
+import { ModalProvider } from "../context/modalContext"
 
 export const Router = createBrowserRouter([
     {
@@ -14,6 +15,6 @@ export const Router = createBrowserRouter([
     },
     {
         path : "/Contatos",
-        element : <Contacts></Contacts>
+        element : <ModalProvider><Contacts></Contacts></ModalProvider>
     }
 ])

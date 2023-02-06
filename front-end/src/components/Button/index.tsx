@@ -6,6 +6,7 @@ export interface ISubmitProps{
     to? : string
     onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined
     isShow? : boolean;
+    width? : string;
 }
 
 export function Button(props : ISubmitProps){
@@ -13,6 +14,6 @@ export function Button(props : ISubmitProps){
     const navigate = useNavigate()
 
     return(
-        <StyledSubmit isShow={props.isShow ? props.isShow : false}><button onClick={props.onClick ? props.onClick : ()=> navigate(props.to ? props.to : "")}>{props.text}</button></StyledSubmit>
+        <StyledSubmit width = {props.width ? props.width : "35%"} isShow={props.isShow ? props.isShow : false}><button onClick={props.onClick ? props.onClick : ()=> navigate(props.to ? props.to : "")}>{props.text}</button></StyledSubmit>
     )
 }

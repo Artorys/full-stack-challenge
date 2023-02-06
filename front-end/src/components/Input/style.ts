@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-export const StyledDiv = styled.div`
-    width: 35%;
+interface IDivProps{
+    width: string;
+}
+
+export const StyledDiv = styled.div<IDivProps>`
+    width: ${props=> props.width};
     display: flex;
     justify-content : center;
 

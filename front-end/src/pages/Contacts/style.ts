@@ -8,6 +8,10 @@ export const StyledBoxSection = styled.div`
 display : flex;
 width : 100%;
 height : 100%;
+
+@media(max-width:400px){
+    flex-direction : column;
+}
 `
 export const StyledSection = styled.section`
 display: flex;

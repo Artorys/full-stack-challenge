@@ -1,6 +1,7 @@
 import { ReactElement, useEffect, useRef } from "react";
 import { StyledForm } from "./style";
 import { useState } from "react";
+import { sendData } from "../../utils/form.util";
 
 interface IFormProps{
     children : ReactElement[] | ReactElement
@@ -26,6 +27,6 @@ export function Form(props: IFormProps){
     const [isOverflow,setOverflow] = useState(false)
 
     return(
-        <StyledForm isOverflow = {isOverflow} ref={formRef}>{props.children}</StyledForm>
+        <StyledForm onSubmit={sendData} isOverflow = {isOverflow} ref={formRef}>{props.children}</StyledForm>
     )
 }
