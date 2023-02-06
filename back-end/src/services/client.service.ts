@@ -16,7 +16,7 @@ export class ClientService{
             if(clientById === null){
                 throw new Error("Client not found")
             }
-            return clientById
+            return classToPlain(clientById)
     }
     static async post(data : IClient){ 
         const validated_data = await clientSchema.validate(data,{abortEarly : false,stripUnknown : true})

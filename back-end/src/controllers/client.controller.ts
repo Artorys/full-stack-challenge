@@ -5,9 +5,9 @@ import { IRequestCLient } from "../interfaces/client.interface";
 
 export class ClientController{
     
-    static async get(req : Request,res : Response){
+    static async get(req : IRequestCLient,res : Response){
         try{
-            const id = req.params.id
+            const id = req.client_id
             const response = await ClientService.get(Number(id))
             return res.status(200).json(response)
         }

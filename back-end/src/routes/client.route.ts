@@ -4,7 +4,7 @@ import { AuthTokenCheck } from "../middlewares/auth.middleware";
 
 const RouteClient = Router()
 
-RouteClient.get("/client/:id",ClientController.get)
+RouteClient.get("/client",AuthTokenCheck,ClientController.get)
 RouteClient.post("/client",ClientController.post)
 RouteClient.post("/client/login",ClientController.login)
 RouteClient.patch("/client",AuthTokenCheck,ClientController.patch)
