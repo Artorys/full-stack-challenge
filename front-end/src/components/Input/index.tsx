@@ -9,18 +9,19 @@ interface IInputProps{
     placeholder: string
     width? : string
     mask? : string
-    register : UseFormRegisterReturn<"email"|"full-name"|"password"|"email"|"phone">
+    register : UseFormRegisterReturn<"email"|"full_name"|"password"|"email"|"phone">
 }
 
 export function Input(props : IInputProps){
 
-    const ref = useRef(null)
-
     return(
         <StyledDiv width = {props.width ? props.width : "35%"}>
             <div className="box__input">
-                <StyledLabel ref={ref} htmlFor={props.id}>{props.text}</StyledLabel>
-                <InputMask {...props.register} ref={ref} className="input" mask={props.mask ? props.mask : ""} placeholder={props.placeholder} id={props.id}></InputMask>
+                <StyledLabel htmlFor={props.id}>{props.text}</StyledLabel>
+                {props.mask ?
+                <InputMask mask={props.mask} {...props.register} className="input" placeholder={props.placeholder} id={props.id}></InputMask>
+                :
+                <input {...props.register} className="input" placeholder={props.placeholder} id={props.id}></input>}
             </div>
         </StyledDiv>
     )

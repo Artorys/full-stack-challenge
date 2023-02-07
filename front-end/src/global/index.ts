@@ -40,9 +40,10 @@ body {
 	line-height: 1;
 }
 #root{
-    width : 100vw;
+	width : 100vw;
     height : 100vh;
 	font-family: 'Roboto', sans-serif;
+	overflow-x : hidden;
 	
 }
 ol, ul {

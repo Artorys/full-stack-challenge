@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { StyledBackgroundForm, StyledDiv } from "./style";
 
 interface IBackgroundProps{
-    children : ReactElement
+    children : ReactElement | ReactElement[]
 }
 
 export function BackgroundForm(props: IBackgroundProps){

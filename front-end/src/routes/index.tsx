@@ -3,6 +3,8 @@ import { Register } from "../pages/Register"
 import { Login } from "../pages/Login"
 import { Contacts } from "../pages/Contacts"
 import { ModalProvider } from "../context/modalContext"
+import { ProtectRoute } from "./protect"
+import { ToastProvider } from "../context/toastContext"
 
 export const Router = createBrowserRouter([
     {
@@ -11,10 +13,10 @@ export const Router = createBrowserRouter([
     },
     {
         path : "/Login",
-        element : <Login></Login>
+        element : <ToastProvider><Login></Login></ToastProvider>
     },
     {
         path : "/Contatos",
-        element : <ModalProvider><Contacts></Contacts></ModalProvider>
+        element : <ProtectRoute><ModalProvider><Contacts></Contacts></ModalProvider></ProtectRoute>
     }
 ])
