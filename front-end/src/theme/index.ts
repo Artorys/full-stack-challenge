@@ -6,6 +6,7 @@ export const theme = {
     TEXT_HOVER : "#2A2A63",
     TEXT_INPUT : "#C3C3ED",
     TEXT_ERROR : "#D90429",
+    TEXT_SUCCESS : "#5cb85c",
     TITTLE : "#EEEEEE"
 }
 export type themeType = typeof theme

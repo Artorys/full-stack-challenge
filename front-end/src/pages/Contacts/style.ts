@@ -9,7 +9,7 @@ display : flex;
 width : 100%;
 height : 100%;
 
-@media(max-width:400px){
+@media(max-width:700px){
     flex-direction : column;
 }
 `

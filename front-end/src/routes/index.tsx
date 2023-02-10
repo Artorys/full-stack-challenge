@@ -5,18 +5,31 @@ import { Contacts } from "../pages/Contacts"
 import { ModalProvider } from "../context/modalContext"
 import { ProtectRoute } from "./protect"
 import { ToastProvider } from "../context/toastContext"
+import {ContactsProvider } from "../components/Tittle/contactsContext"
+import { ClientProvider } from "../context/clientContext"
 
 export const Router = createBrowserRouter([
     {
-        path : "/",
-        element : <Register></Register>
+        path : "/*",
+        element : <ToastProvider><Register></Register></ToastProvider>
     },
     {
-        path : "/Login",
+        path : "/login",
         element : <ToastProvider><Login></Login></ToastProvider>
     },
     {
-        path : "/Contatos",
-        element : <ProtectRoute><ModalProvider><Contacts></Contacts></ModalProvider></ProtectRoute>
+        path : "/contatos",
+                
+        element :   <ProtectRoute>
+                        <ClientProvider>
+                            <ToastProvider>
+                                <ModalProvider>
+                                    <ContactsProvider>
+                                        <Contacts></Contacts>
+                                    </ContactsProvider>
+                                </ModalProvider>
+                            </ToastProvider>
+                        </ClientProvider>
+                    </ProtectRoute>
     }
 ])

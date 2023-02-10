@@ -17,7 +17,7 @@ export class ContactService{
     static async get(client_id : number,contact_id : number){
             const contact = await this.clientRepository.findOne({relations : {contacts : true},where : {id : client_id,contacts : {id : contact_id}}})
             if(!contact){
-                throw new Error("Client not have this contact")
+                throw new Error("Você não possue esse contato")
             }
             return contact.contacts[0]
     }
@@ -44,33 +44,34 @@ export class ContactService{
         contact = this.contactRepository.create(contact)
 
         contact = await this.contactRepository.save(contact)
+        
 
         return contact
     }
     static async patch(client_id : number,contact_id : number,data : IClient){
-        const {contacts} = await this.clientRepository.findOne({relations : {contacts : true},where : {id : client_id,contacts : {id : contact_id}}})
+        const client = await this.clientRepository.findOne({relations : {contacts : true},where : {id : client_id,contacts : {id : contact_id}}})
 
-        if(!contacts[0]){
-            throw new Error("Client not have this contact")
+        if(!client?.contacts[0]){
+            throw new Error("Você não possue esse contato")
         }
 
         const validatedData = await contactUpdateSchema.validate(data,{abortEarly : false,stripUnknown: true})
         
-        contacts[0].full_name = validatedData.full_name ? validatedData.full_name : contacts[0].full_name
-        contacts[0].email = validatedData.email ? validatedData.email : contacts[0].email
-        contacts[0].phone = validatedData.phone ? validatedData.phone : contacts[0].phone
+        client.contacts[0].full_name = validatedData.full_name ? validatedData.full_name : client.contacts[0].full_name
+        client.contacts[0].email = validatedData.email ? validatedData.email : client.contacts[0].email
+        client.contacts[0].phone = validatedData.phone ? validatedData.phone : client.contacts[0].phone
         
-        const updatedContact = await this.contactRepository.save(contacts[0])
+        const updatedContact = await this.contactRepository.save(client.contacts[0])
 
         return updatedContact
     }
     static async delete(client_id : number,contact_id: number){
 
-        const {contacts} = await this.clientRepository.findOne({relations : {contacts : true},where : {id : client_id,contacts : {id : contact_id}}})
+        const client = await this.clientRepository.findOne({relations : {contacts : true},where : {id : client_id,contacts : {id : contact_id}}})
 
-        if(!contacts[0]){
-            throw new Error("Client not have this contact")
+        if(!client?.contacts[0]){
+            throw new Error("Você não possue esse contato")
         }
-        return await this.contactRepository.delete(contacts[0].id)
+        return await this.contactRepository.delete(client.contacts[0].id)
     }
 }

@@ -6,30 +6,27 @@ import { Input } from "../../components/Input";
 import { Tittle } from "../../components/Tittle";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../schemas/client.schema";
-import { useContext, useEffect } from "react";
-import { ToastContext } from "../../context/toastContext";
 import { Toast } from "../../components/Toast";
+import { Description } from "../../components/Description";
 
 export function Login(){
 
-    const {handleSubmit,register,formState} = useForm({resolver : yupResolver(loginSchema)})
-
-    useEffect(()=>{
-        console.log(formState)
-    })
+    const {handleSubmit,register,formState: {errors}} = useForm({resolver : yupResolver(loginSchema)})
 
     return (
         <>
-        <Toast message="Login invalido"></Toast>
+        <Toast></Toast>
         <BackgroundForm>
-            <Form type="login" handleSubmit={handleSubmit}>
+            <Form type="client" subtype="login" handleSubmit={handleSubmit}>
                 <Tittle text="Login"></Tittle>
                 <Input register={{...register("email")}} id="email" text="Email" placeholder="Digite seu email"></Input>
+                {errors.email?.message && <Description>{errors.email.message as string}</Description>}
                 <Input register = {{...register("password")}}id="senha" text="Senha" placeholder="Digite sua senha"></Input>
-                <Button type="submit" text="Logar"></Button>
+                {errors.password?.message && <Description>{errors.password.message as string}</Description>}
+                <Button isPadding={true} type="submit" text="Logar"></Button>
                 <div className="div__description">
                         <p className="description">Não possui conta?</p>
-                        <Button to="/" type="submit" text="Registrar"></Button>
+                        <Button isPadding={true} to="/" type="submit" text="Registrar"></Button>
                 </div>
             </Form>
         </BackgroundForm>

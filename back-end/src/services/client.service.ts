@@ -14,7 +14,7 @@ export class ClientService{
             const clientRepository = this.clientRepository
             const clientById = await clientRepository.findOneBy({id : id})
             if(clientById === null){
-                throw new Error("Client not found")
+                throw new Error("Cliente não encontrado")
             }
             return classToPlain(clientById)
     }
@@ -25,7 +25,7 @@ export class ClientService{
         const checkDuplicatedEmail = await this.clientRepository.findOneBy({email : email})
 
         if(checkDuplicatedEmail){
-            throw new Error("Email already been used")
+            throw new Error("Esse Email já está em uso")
         }
         //hashing password to saves in DB
         validated_data.password = await hash(validated_data.password,10)
@@ -41,13 +41,13 @@ export class ClientService{
         const checkUserExist = await this.clientRepository.findOneBy({email : validated_data.email})
 
         if(!checkUserExist){
-            throw new Error("Email or password incorrect")
+            throw new Error("Email ou senha incorretos")
         }
 
         const comparePassword = await compare(validated_data.password,checkUserExist.password)
 
         if(!comparePassword){
-            throw new Error("Email or password incorrect")
+            throw new Error("Email ou senha incorretos")
         }
 
         const TokenForUser = sign({id : checkUserExist.id},process.env.SECRET_KEY,{expiresIn : "24h"})
@@ -57,7 +57,7 @@ export class ClientService{
     static async patch(id : number,data : IClient){
         const checkUserExist = await this.clientRepository.findOneBy({id : id})
         if(!checkUserExist){
-            throw new Error("Client not found")
+            throw new Error("Cliente não encontrado")
         }
         const validatedData = await clientUpdateSchema.validate(data,{abortEarly : false,stripUnknown: true})
 
@@ -73,7 +73,7 @@ export class ClientService{
     static async delete(id : number){
         const checkUserExist = await this.clientRepository.findOneBy({id:id})
         if(!checkUserExist){
-            throw new Error("Client not found")
+            throw new Error("Cliente não encontrado")
         }
         await this.clientRepository.delete(id)
     }

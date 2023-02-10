@@ -1,8 +1,14 @@
 import { Dispatch, ReactElement, SetStateAction, createContext, useState } from "react";
 
+interface IToast{
+    message : string
+    active : boolean
+    type : string
+}
+
 interface IToastContext{
-    isToasted : boolean
-    setToasted : Dispatch<SetStateAction<boolean>>
+    isToasted : IToast
+    setToasted : Dispatch<SetStateAction<IToast>>
 
 }
 interface IToastProviderProps{
@@ -13,7 +19,11 @@ export const ToastContext = createContext({} as IToastContext)
 
 export function ToastProvider(props : IToastProviderProps ){
 
-    const [isToasted,setToasted] = useState(false)
+    const [isToasted,setToasted] = useState({
+        message: "",
+        active : false,
+        type : ""
+    })
 
     return(
         <ToastContext.Provider value={{isToasted,setToasted}}>{props.children}</ToastContext.Provider>

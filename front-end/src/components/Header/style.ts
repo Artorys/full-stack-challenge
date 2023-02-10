@@ -19,6 +19,9 @@ export const StyledNav = styled.nav`
         align-items : center;
 
         li{
+            width: 100%;
+            display: flex;
+            justify-content : space-between;
             font-weight : 600;
             color: ${props=> props.theme.TITTLE};
             margin-right : 1rem;
@@ -28,6 +31,8 @@ export const StyledNav = styled.nav`
                 display: flex;
                 flex-direction: column;
                 position: absolute;
+                z-index : 10;
+                margin-top: 1rem;
                 
                 a{
                     border-radius : 10px;
@@ -44,6 +49,27 @@ export const StyledNav = styled.nav`
                         background-color : ${props=> props.theme.BACKGROUND_HOVER};
                     }
                 }
+            }
+            .dropdown__info{
+                display: flex;
+                z-index : 2;
+                flex-direction: column;
+                align-items : flex-start;
+                position: absolute;
+                margin-top: 1rem ;
+                background-color: ${props=> props.theme.BACKGROUND_INPUT};
+                border-radius : 10px;
+                
+                .info__box{
+                    margin: 1rem;
+                    p{
+                        cursor: pointer;
+                        padding: 0.2rem;
+                        font-weight : 400;
+                        color: ${props=> props.theme.TEXT_INPUT};
+                    }
+                }
+
             }
         }
     }

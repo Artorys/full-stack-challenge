@@ -1,20 +1,35 @@
-import { apiClient, apiContact, apiLogin } from "../api";
+import { AxiosError } from "axios";
+import {FieldValues } from "react-hook-form";
+import { create } from "./post.util";
+import { update } from "./update.util";
+import { login } from "./login.util";
+import { remove } from "./delete.util";
 
-export async function sendData(type : string, data : Object){
-    try{
-        if(type == "register"){
-            await apiClient.post("",data)
+export type IType = "client" | "contact"
+export type ISubType = "create" | "login" | "update" | "delete"
+
+export async function sendData(type : IType,subtype : ISubType, data : FieldValues,id? : string){
+
+    if(type == "client"){
+        if(subtype == "create"){
+            return await create(type,data)
         }
-        if(type == "login"){
-            const response = await apiLogin.post("",data)
-            const token = response.data?.token
-            window.localStorage.setItem("$TOKEN",token)
+        if(subtype == "login"){
+            return await login(data)
         }
-        if(type == "contact"){
-            await apiContact.post("",data)
+        if(subtype == "update"){
+            return await update(type,data)
         }
     }
-    catch(err){
-        return "error"
+    if(type == "contact"){
+        if(subtype == "create"){
+            return await create(type,data)
+        }
+        if(subtype == "login"){
+            return await login(data)
+        }
+        if(subtype == "update"){
+            return await update(type,data,id)
+        }
     }
 }

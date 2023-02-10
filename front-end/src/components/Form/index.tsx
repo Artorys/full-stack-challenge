@@ -1,19 +1,30 @@
-import { FormEventHandler, ReactElement, useContext, useEffect, useRef } from "react";
+import { ReactNode, useContext, useEffect, useRef } from "react";
 import { StyledForm } from "./style";
 import { useState } from "react";
 import { FieldValues, UseFormHandleSubmit } from "react-hook-form";
 import { sendData } from "../../utils/form.util";
 import { AuthContext } from "../../context/authContext";
 import { ToastContext } from "../../context/toastContext";
+import { useNavigate } from "react-router-dom";
+import { checkTokenStorage } from "../../utils/checkToken.util";
+import {list} from "../../utils/list.util"
+import { ContactsContext, IContact } from "../Tittle/contactsContext";
 
 interface IFormProps{
-    children : ReactElement[] | ReactElement
+    children : ReactNode
     handleSubmit : UseFormHandleSubmit<FieldValues>
-    type : "register" | "login" | "contact"
+    type : "contact" | "client"
+    subtype : "update" | "create" | "login"
+    id?: string
 }
 
 export function Form(props: IFormProps){
+    
+    const navigate = useNavigate()
 
+    const {isToasted,setToasted} = useContext(ToastContext)
+    const {contacts,setContacts} = useContext(ContactsContext)
+    const {isAuth,setIsAuth} = useContext(AuthContext)
     
     useEffect(()=>{
         window.addEventListener("resize",()=>{
@@ -29,29 +40,47 @@ export function Form(props: IFormProps){
                 }
             }
         })
-    },[])
+        if(isAuth.auth){
+            const isValidToken = checkTokenStorage(isAuth.token)
+            if(isValidToken){
+                navigate("/Contatos")
+            }
 
-    const {isToasted,setToasted} = useContext(ToastContext)
-    const {isAuth,setIsAuth} = useContext(AuthContext)
+        }
+    },[isAuth])
+
 
     const formRef = useRef(null)
     const [isOverflow,setOverflow] = useState(false)
 
+
     return(
-        <StyledForm onSubmit={props.handleSubmit(async data=>{
-           const response = await sendData(props.type,data)
-            if(response == "error"){
-                setToasted(true)
-                setTimeout(()=>{
-                    setToasted(false)
+        <StyledForm type={props.type} subtype={props.subtype} onSubmit={props.handleSubmit(async data=>{
+           const response = await sendData(props.type,props.subtype,data,props.id)
+           if(response?.type == "error"){
+                setToasted({active : true,message : response.message,type : "error"})
+                const timeout = setTimeout(()=>{
+                    setToasted({active : false,message : "",type : "error"})
+                    clearTimeout(timeout)
                 },2000)
+                return
             }
-            const token = window.localStorage.getItem("$TOKEN")
-            if(token){
-                setIsAuth(true)
-            }
-            else{
-                setIsAuth(false)
+            if(response?.type == "success"){
+                if(props.type == "contact"){
+                    const response = await list(props.type)
+                    const contactData : IContact[] = (response?.data as any)
+                    setContacts(contactData)
+                    
+                }
+                if(response.message){
+                    setToasted({active : true,message : response.message,type: "success"})
+                    const timeout = setTimeout(()=>{
+                        setToasted({active : false,message : "",type : ""})
+                        clearTimeout(timeout)
+                     },2000)
+                }
+                setIsAuth({auth : true,token  : response.token})
+                window.localStorage.setItem("$TOKEN",response.token)
             }
         })} isOverflow = {isOverflow} ref={formRef}>{props.children}</StyledForm>
     )

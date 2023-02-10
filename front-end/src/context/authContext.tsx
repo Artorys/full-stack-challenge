@@ -1,8 +1,13 @@
 import { Dispatch, ReactElement, SetStateAction, createContext, useState } from "react";
+import { boolean } from "yup";
 
+interface IAuth{
+    auth : boolean
+    token : string
+}
 interface IAuthContext{
-    isAuth : boolean
-    setIsAuth : Dispatch<SetStateAction<boolean>>
+    isAuth : IAuth
+    setIsAuth : Dispatch<SetStateAction<IAuth>>
 
 }
 interface IAuthProviderProps{
@@ -13,7 +18,10 @@ export const AuthContext = createContext({} as IAuthContext)
 
 export function AuthProvider(props : IAuthProviderProps ){
 
-    const [isAuth,setIsAuth] = useState(false)
+    const [isAuth,setIsAuth] = useState({
+        auth : false,
+        token : ""
+    })
 
     return(
         <AuthContext.Provider value={{isAuth,setIsAuth}}>{props.children}</AuthContext.Provider>

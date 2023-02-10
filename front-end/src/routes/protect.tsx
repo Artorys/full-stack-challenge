@@ -9,6 +9,6 @@ interface IProtectRouteProps{
 export function ProtectRoute(props : IProtectRouteProps){
     const {isAuth} = useContext(AuthContext)
 
-    return isAuth ? props.children : 
+    return isAuth.auth ? props.children : 
     <Navigate to={"/login"}></Navigate>
 }
