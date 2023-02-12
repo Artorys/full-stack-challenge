@@ -14,6 +14,7 @@ import { remove } from "../../utils/delete.util";
 import { list } from "../../utils/list.util";
 import { IContact } from "../../interfaces/contact.interface";
 import { ContactsContext } from "../Tittle/contactsContext";
+import { ToastContext } from "../../context/toastContext";
 interface ICardProps{
     id : string;
     full_name : string;
@@ -27,6 +28,7 @@ export function Card(props : ICardProps){
 
     const [isDelete,setDelete] = useState(false)
     const [isUpdate,setUpdate] = useState(false)
+    const {setToasted} = useContext(ToastContext)
 
     const {contacts,setContacts} = useContext(ContactsContext)
 
@@ -85,8 +87,14 @@ export function Card(props : ICardProps){
                                 await remove("contact",props.id)
                                 const response = await list("contact")
                                 const contactData : IContact[] = (response?.data as any)
+                                setToasted({active : true,message : `Contato ${props.id} Deletado`,type : "success"})
+                                const timeout = setTimeout(()=>{
+                                    setToasted({active : false,message : "",type : ""})
+                                    clearTimeout(timeout)
+                                },2000)
                                 setContacts(contactData)
                                 setDelete(false)
+
                             }} width="30%" text="Sim"></Button>
                             <Button onClick={()=>{
                                 setDelete(false)

@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/pages/Contacts/style.ts", "src/theme"],
+  "include": ["src", "src/pages/pages/Contacts/style.ts", "src/theme"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
