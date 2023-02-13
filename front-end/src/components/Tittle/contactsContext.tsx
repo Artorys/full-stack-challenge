@@ -20,7 +20,7 @@ export const ContactsContext = createContext({} as IContactsContext)
 
 export function ContactsProvider(props : IContactsProviderProps ){
 
-    const [contacts,setContacts] = useState([{}] as IContact[])
+    const [contacts,setContacts] = useState([] as IContact[])
 
     return(
         <ContactsContext.Provider value={{contacts,setContacts}}>{props.children}</ContactsContext.Provider>

@@ -57,7 +57,6 @@ export async function update(type : "contact" | "client",data: FieldValues,id? :
                 return responseData
             }
             if(type == "contact"){
-                console.log(err.response)
                 responseData.type = "error"
                 responseData.message = err.response?.data.message
                 return responseData

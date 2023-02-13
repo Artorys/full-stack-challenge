@@ -5,6 +5,7 @@ import { ContactsContext } from "../Tittle/contactsContext";
 import { Card } from "../Card";
 import { IContact } from "../../interfaces/contact.interface";
 import { Description } from "../Description";
+import { ToastContext } from "../../context/toastContext";
 
 interface IListCardProps{
     children : ReactElement[]
@@ -13,14 +14,23 @@ interface IListCardProps{
 export function ListCard(props : IListCardProps){
 
     const {contacts,setContacts} = useContext(ContactsContext)
+    const {isToasted,setToasted} = useContext(ToastContext)
 
     useEffect(()=>{
 
         async function GetContacts(){
-            const token = window.localStorage.getItem("$TOKEN")
-            const response = await apiContact.get("",{headers : {Authorization : `Bearer ${token}`}})
-            const contacts : IContact[] = response.data
-            setContacts(contacts)
+            try{
+                const token = window.localStorage.getItem("$TOKEN")
+                const response = await apiContact.get("",{headers : {Authorization : `Bearer ${token}`}})
+                const contacts : IContact[] = response.data
+                setContacts(contacts)
+            }
+            catch(err){
+                setToasted({active : true,message : "Você não possui contatos",type: "error"})
+                setTimeout(()=>{
+                    setToasted({active : false,message : "", type : ""})
+                },2000)
+            }
         }
         GetContacts()
     },[])

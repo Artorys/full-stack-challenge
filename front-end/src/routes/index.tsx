@@ -7,7 +7,6 @@ import { ProtectRoute } from "./protect"
 import { ToastProvider } from "../context/toastContext"
 import {ContactsProvider } from "../components/Tittle/contactsContext"
 import { ClientProvider } from "../context/clientContext"
-import { PDFContacts } from "../pages/PDFContacts"
 
 export const Router = createBrowserRouter([
     {
@@ -33,10 +32,4 @@ export const Router = createBrowserRouter([
                         </ClientProvider>
                     </ProtectRoute>
     },
-    {
-        path  :"/pdf",
-        element : <ProtectRoute>
-            <PDFContacts></PDFContacts>
-        </ProtectRoute>
-    }
 ])

@@ -1,6 +1,6 @@
 import { ConnectionDB } from "../data-source"
 import { Client} from "../entities/client.entity"
-import { clientSchema, clientUpdateSchema, loginSchema } from "../schema/client.schema"
+import { clientSchema, clientUpdateSchema, loginSchema } from "../../schema/client.schema"
 import {hash,compare} from "bcryptjs"
 import {sign} from "jsonwebtoken"
 import {classToPlain} from "class-transformer"
@@ -12,7 +12,7 @@ export class ClientService{
 
     static async get(id : number){
             const clientRepository = this.clientRepository
-            const clientById = await clientRepository.findOneBy({id : id})
+            const clientById = await clientRepository.findOne({where : {id  : id},relations : {contacts : true}})
             if(clientById === null){
                 throw new Error("Cliente não encontrado")
             }

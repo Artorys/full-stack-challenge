@@ -18,4 +18,24 @@ export const StyledDiv = styled.div`
         color : ${props=> props.theme.TEXT_HOVER};
         background-color : ${props=> props.theme.BACKGROUND_HOVER};
     }
+    a{
+        text-align : center;
+        display : flex;
+        align-items : center;
+        justify-content : center;
+        width: 100%;
+        height: 100%;
+        color : inherit;
+        text-decoration : none;
+    }
+    p{
+        text-align : center;
+        display : flex;
+        align-items : center;
+        justify-content : center;
+        width: 100%;
+        height: 100%;
+        color : inherit;
+        text-decoration : none;
+    }
 `

@@ -1,12 +1,8 @@
 import { ConnectionDB } from "../data-source"
 import { Client} from "../entities/client.entity"
-import { clientSchema, clientUpdateSchema, loginSchema } from "../schema/client.schema"
-import {hash,compare} from "bcryptjs"
-import {sign} from "jsonwebtoken"
-import {classToPlain} from "class-transformer"
 import { IClient } from "../interfaces/client.interface"
 import { Contact } from "../entities/contact.entity"
-import { contactSchema, contactUpdateSchema } from "../schema/contact.schema"
+import { contactSchema, contactUpdateSchema } from "../../schema/contact.schema"
 import { IContact } from "../interfaces/contact.interface"
 
 export class ContactService{
@@ -15,14 +11,21 @@ export class ContactService{
     static clientRepository = ConnectionDB.getRepository(Client)
 
     static async get(client_id : number,contact_id : number){
-            const contact = await this.clientRepository.findOne({relations : {contacts : true},where : {id : client_id,contacts : {id : contact_id}}})
-            if(!contact){
-                throw new Error("Você não possue esse contato")
+            const client = await this.clientRepository.findOne({relations : {contacts : true},where : {id : client_id,contacts : {id : contact_id}}})
+
+            if(!client?.contacts[0]){
+                throw new Error("Você não possue contatos")
             }
-            return contact.contacts[0]
+
+            return client.contacts[0]
     }
     static async list(client_id : number){
+
         const client = await this.clientRepository.findOne({where : {id : client_id},relations : {contacts : true}}) 
+
+        if(!client?.contacts[0]){
+            throw new Error("Você não possue contatos")
+        }
 
         const contacts = client.contacts
     

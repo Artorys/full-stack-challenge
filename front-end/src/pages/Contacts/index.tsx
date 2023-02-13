@@ -19,7 +19,6 @@ import { contactSchema } from "../../schemas/contact.schema";
 import { Description } from "../../components/Description";
 import { Toast } from "../../components/Toast";
 import { ListCard } from "../../components/ListCard";
-import { PDFContacts } from "../PDFContacts";
 export function Contacts(){
 
     const {isOpenDelete,isOpenEdit} = useContext(ModalContext)

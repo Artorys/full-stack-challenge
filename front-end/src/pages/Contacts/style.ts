@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const StyledDiv = styled.div`
     width : 100%;
     height : 100%;
+
+    .disable{
+        opacity : 0.5;
+    }
 `
 export const StyledBoxSection = styled.div`
 display : flex;

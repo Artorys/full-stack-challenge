@@ -83,7 +83,6 @@ export class ClientController{
         try{
             const id = req.client_id
             await ClientService.delete(id)
-            console.log("salve")
             return res.status(204).send()
         }
         catch(err){
